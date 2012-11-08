@@ -23,8 +23,10 @@ document.getElementById("myFrame").src = localStorage.getItem('iframesrc');}
 if (document.getElementById('secretqdiv') != null) {
 document.getElementById("secretqdiv").innerHTML = localStorage.getItem('secretq');}
 
-//Hide the Background Info section
-if (localStorage.getItem('hideinfo') != null) {document.getElementById('hideinfo').style.display = 'none'}
+//Hide the Background Info section. This requires two parts: first, check for the localStorage item. Second, make sure the element exists. If you try to run a function on an element that doesn't exist, any additional JavaScript in that function will not run.
+if (localStorage.getItem('hideinfo') != null) { 
+	if (document.getElementById('hideinfo') != null) {document.getElementById('hideinfo').style.display = 'none'}
+}
 
 
 //These functions allow the Score Keeping Names to show up, and show the scores when you load the scores page.
