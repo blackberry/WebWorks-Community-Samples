@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:rim="http://www.blackberry.com/ns/widgets" id="localstorage" version="1.0.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets">
+<widget xmlns:rim="http://www.blackberry.com/ns/widgets" id="localstorage" version="1.1.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets">
   <rim:navigation mode="focus"/>
   <name>localStorage</name>
   <description>How to use localStorage to make better bbUI apps</description>
