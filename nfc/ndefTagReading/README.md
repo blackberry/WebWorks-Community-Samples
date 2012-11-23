@@ -30,7 +30,8 @@ BlackBerry 10 delivers NDEF tag reads to applications via the Invocation Framewo
 
 * `com.robwilliams.d2012112.ww.a` - this is an ID which must be unique. Please don't use `robwilliams` IDs.
 * `application/vnd.rim.nfc.ndef` - this is the MIME type used internally to identify NDEF tags.
-* `ndef://1,ndef://2,ndef://4` - this shows interest in `WELL KNOWN` (1), `MEDIA` (2) and `EXTERNAL` (4) tags. You can provide a finer filter here. eg: `ndef//1/Sp` will limit to Smart Posters (Sp)  
+* `ndef://1,ndef://2,ndef://4` - this shows interest in `WELL KNOWN` (1), `MEDIA` (2) and `EXTERNAL` (4) tags. 
+  You can provide a finer filter here. eg: `ndef://1/Sp` will limit to Smart Posters (Sp)  
 
 ### blackberrynfc.ndef.js
 
