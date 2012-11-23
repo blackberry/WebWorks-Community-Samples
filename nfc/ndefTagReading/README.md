@@ -17,7 +17,7 @@ The following shows steps to use the library.
 
 BlackBerry 10 delivers NDEF tag reads to applications via the Invocation Framework.
 
-```
+```xml
 <rim:invoke-target id="com.robwilliams.d20121122.ww.a">
 	<type>APPLICATION</type>
 	<filter>
@@ -38,13 +38,13 @@ You can provide a finer filter here. Try `ndef://1/Sp` will limit to Smart Poste
 In your html or JavaScript you should register an invocation handler. You can then use this library to parse the records.
 
 Although not necessary, I've created conventient names for some variables to make typing easier;
-```
+```javascript
 var WELL_KNOWN = blackberrynfc.ndef.tnf.WELL_KNOWN;
 var decodeRecords = blackberrynfc.ndef.message.decodeRecords;
 ```
 
 Inside the invocation handler, check that the invocation you've received is for the correct target;
-```
+```javascript
 	function onInvoked(onInvokedInfo) {
 		try {
 			if ("com.robwilliams.d20121122.ww.a" == onInvokedInfo.target
@@ -52,20 +52,20 @@ Inside the invocation handler, check that the invocation you've received is for 
 ```
 
 Decode the record(s);
-```
+```javascript
 // Convert the bytes to records.
 var records = decodeRecords(onInvokedInfo.data);
 ```
 
 Look for a record that is the type you're interested in;
-```
+```javascript
 if (records.length > 0) {
 	var record = records[0];
 	if (record.isType(WELL_KNOWN, "Sp")) {
 ```
 
 Enjoy the NDEF goodness;
-```
+```javascript
 alert("Read a smart poster\n" + record.getText() + "\n"
 	+ record.getURI());
 ```
