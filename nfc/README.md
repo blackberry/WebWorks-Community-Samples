@@ -1,6 +1,6 @@
 # WebWorks and NFC
 
-This (will) be a collection of code allowing WebWorks developers to access the BlackBerry's NFC features.
+This is (will be?) a collection of code allowing WebWorks developers to access the BlackBerry's NFC features.
 
 ## Tasks
 
