@@ -35,4 +35,11 @@ You can provide a finer filter here. Try `ndef://1/Sp` will limit to Smart Poste
 
 ### blackberrynfc.ndef.js
 
+<table>
+<thead>
+<tr><th>Function</th><th>Behaviour</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
 
