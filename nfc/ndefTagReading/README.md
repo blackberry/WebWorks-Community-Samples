@@ -33,13 +33,44 @@ BlackBerry 10 delivers NDEF tag reads to applications via the Invocation Framewo
 * `ndef://1,ndef://2,ndef://4` - this shows interest in `WELL KNOWN` (1), `MEDIA` (2) and `EXTERNAL` (4) tags.  
 You can provide a finer filter here. Try `ndef://1/Sp` will limit to Smart Posters (Sp)  
 
-### blackberrynfc.ndef.js
+### index.html
 
-<table>
-<thead>
-<tr><th>Function</th><th>Behaviour</th></tr>
-</thead>
-<tbody></tbody>
-</table>
+In your html or JavaScript you should register an invocation handler. You can then use this library to parse the records.
 
+Although not necessary, I've created conventient names for some variables to make typing easier;
+```
+var WELL_KNOWN = blackberrynfc.ndef.tnf.WELL_KNOWN;
+var decodeRecords = blackberrynfc.ndef.message.decodeRecords;
+```
+
+Inside the invocation handler, check that the invocation you've received is for the correct target;
+```
+	function onInvoked(onInvokedInfo) {
+		try {
+			if ("com.robwilliams.d20121122.ww.a" == onInvokedInfo.target
+					&& onInvokedInfo.data) {
+```
+
+Decode the record(s);
+```
+// Convert the bytes to records.
+var records = decodeRecords(onInvokedInfo.data);
+```
+
+Look for a record that is the type you're interested in;
+```
+if (records.length > 0) {
+	var record = records[0];
+	if (record.isType(WELL_KNOWN, "Sp")) {
+```
+
+Enjoy the NDEF goodness;
+```
+alert("Read a smart poster\n" + record.getText() + "\n"
+	+ record.getURI());
+```
+
+## More Information
+
+See the tests under `js/test` for ways to create and extract information from tags.
 
