@@ -18,14 +18,14 @@ The following shows steps to use the library.
 BlackBerry 10 delivers NDEF tag reads to applications via the Invocation Framework.
 
 ```
-	<rim:invoke-target id="com.robwilliams.d20121122.ww.a">
-		<type>APPLICATION</type>
-		<filter>
-			<action>bb.action.OPEN</action>
-			<mime-type>application/vnd.rim.nfc.ndef</mime-type>
-			<property value="ndef://1,ndef://2,ndef://4" var="uris" />
-		</filter>
-	</rim:invoke-target>
+<rim:invoke-target id="com.robwilliams.d20121122.ww.a">
+	<type>APPLICATION</type>
+	<filter>
+		<action>bb.action.OPEN</action>
+		<mime-type>application/vnd.rim.nfc.ndef</mime-type>
+		<property value="ndef://1,ndef://2,ndef://4" var="uris" />
+	</filter>
+</rim:invoke-target>
 ```
 
 * `com.robwilliams.d2012112.ww.a` - this is an ID which must be unique. Please don't use `robwilliams` IDs.
