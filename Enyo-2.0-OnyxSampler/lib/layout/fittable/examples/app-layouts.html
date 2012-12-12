@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+	<title>Fittable Examples</title>
+	<!-- -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- -->
+	<script src="../../../../enyo/enyo.js" type="text/javascript"></script>
+	<script src="../package.js" type="text/javascript"></script>
+	<script src="../../../../lib/onyx/package.js" type="text/javascript"></script>
+	<!-- -->
+	<style>
+		.pullout-grabbutton {
+			position: absolute;
+			height: 54px;
+			width: 50px;
+			top: 0;
+			right: -46px;
+			border-radius: 0 10px 10px 0;
+			background-color: #D8D8D8;
+			box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
+		}
+
+		.pullout {
+			background-color: #D8D8D8;
+			box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
+			border-radius: 0 0 10px 0;
+		}
+
+		.pullout-controls > * {
+			margin: 20px;
+			padding-left: 30px;
+			padding-right: 30px;
+			display: block;
+		}
+
+		.fitting-color {
+			background: #B7BFC4;
+		}
+	
+	</style>
+</head>
+<body class="onyx">
+<script type="text/javascript">
+	new (enyo.kind({
+		name: "App",
+		components: [
+			{kind: "onyx.Slideable", classes: "pullout", style: "z-index: 10; position: absolute; left: 0; top: 60px;", unit: "%", min: -100, value: -100, components: [
+				{classes: "pullout-controls", components: [
+					{kind: "onyx.Button", content: "Layout 1", value: 1, ontap: "layoutButtonTap"},
+					{kind: "onyx.Button", content: "Layout 2", value: 2, ontap: "layoutButtonTap"},
+					{kind: "onyx.Button", content: "Layout 3", value: 3, ontap: "layoutButtonTap"},
+					{kind: "onyx.Button", content: "Layout 4", value: 4, ontap: "layoutButtonTap"}
+				]},
+				{kind: "onyx.Grabber", classes: "pullout-grabbutton"}
+			]},
+			{name: "layout1", kind: "FittableRows", classes: "enyo-fit", components: [
+				{kind: "onyx.Toolbar", components: [
+					{content: "Header"},
+					{kind: "onyx.Button", content: "Button"},
+					{kind: "onyx.InputDecorator", components: [
+						{kind: "onyx.Input"}
+					]}
+				]},
+				{kind: "FittableColumns", fit: true, components: [
+					{style: "width: 300px;"},
+					{kind: "FittableRows", fit: true, style: "box-shadow: -6px 0px 6px rgba(0,0,0,0.3);", components: [
+						{style: "height: 300px; box-shadow: 6px 6px 6px rgba(0,0,0,0.3); position: relative; z-index: 1;"},
+						{fit: true, classes: "fitting-color"}
+					]}
+				]}
+			]},
+			{name: "layout2", showing: false, kind: "FittableColumns", classes: "enyo-fit", components: [
+				{kind: "FittableRows", style: "width: 300px;", components: [
+					{fit: true},
+					{kind: "onyx.Toolbar", components: [
+						{kind: "onyx.Button", content: "1"}
+					]}
+				]},
+				{kind: "FittableRows", style: "width: 300px; box-shadow: -6px 0px 6px rgba(0,0,0,0.3);", components: [
+					{fit: true, style: ""},
+					{kind: "onyx.Toolbar", components: [
+						{kind: "onyx.Button", content: "2"}
+					]}
+				]},
+				{kind: "FittableRows", fit: true, style: "box-shadow: -6px 0px 6px rgba(0,0,0,0.3);", components: [
+					{fit: true, classes: "fitting-color"},
+					{kind: "onyx.Toolbar", components: [
+						{kind: "onyx.Button", content: "3"}
+					]}
+				]}
+			]},
+			{name: "layout3", showing: false, kind: "FittableColumns", classes: "enyo-fit", components: [
+				{kind: "FittableRows", fit: true, components: [
+					{fit: true, classes: "fitting-color"},
+					{style: "height: 300px; position: relative; box-shadow: 0 -6px 6px rgba(0,0,0,0.3);"},
+					{kind: "onyx.Toolbar", components: [
+						{kind: "onyx.Button", content: "1"}
+					]}
+				]},
+				{kind: "FittableRows", style: "width: 300px; position: relative; box-shadow: -6px 0px 6px rgba(0,0,0,0.3);", components: [
+					{fit: true},
+					{kind: "onyx.Toolbar", components: [
+						{kind: "onyx.Button", content: "2"}
+					]}
+				]}
+			]},
+			{name: "layout4", showing: false, kind: "FittableColumns", classes: "enyo-fit", components: [
+				{kind: "FittableRows", style: "width: 300px; box-shadow: 6px 0px 6px rgba(0,0,0,0.3); position: relative; z-index: 1;", components: [
+					{style: "height: 200px;"},
+					{style: "height: 200px;"},
+					{fit: true},
+					{kind: "onyx.Toolbar", components: [
+						{content: "Toolbar"}
+					]}
+				]},
+				{kind: "FittableRows", fit: true, components: [
+					{fit: true, classes: "fitting-color"},
+					{kind: "onyx.Toolbar", components: [
+						{kind: "onyx.Button", content: "2"}
+					]}
+				]}
+			]}
+		],
+		layouts: 4,
+		rendered: function() {
+			this.inherited(arguments);
+			this.$.slideable.animateToMax();
+		},
+		layoutButtonTap: function(inSender) {
+			for (var i=1, c; i<=this.layouts; i++) {
+				c = this.$["layout" + i];
+				c.setShowing(i == inSender.value ? true : false);
+				if (c.showing) {
+					c.resized();
+				}
+			}
+			this.$.slideable.animateToMin();
+		}
+	}))({fit: true, classes: "enyo-unselectable"}).write();
+
+</script>
+</body>
+</html>

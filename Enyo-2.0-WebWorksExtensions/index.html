@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html>
+<head>
+
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<meta name='viewport'
+	content='width=device-width,target-densitydpi=device-dpi,user-scalable=no,initial-scale=1.0'>
+<link href='enyo/enyo.css' rel='stylesheet' type='text/css'>
+<script src='enyo/enyo.js'></script>
+<script src='js/package.js'></script>
+<title>Enyo BB Extensions</title>
+</head>
+<body class='onyx'>
+<script type='text/javascript'>
+enyo.kind({
+	name: 'AppDescriptor',
+	kind: enyo.Control,
+	style: 'display: none',
+	classes: 'onyx',
+	components: [
+	{
+		kind: 'onyx.Groupbox', 
+		components: [
+		{ kind: 'onyx.GroupboxHeader', content: blackberry.app.name + ' ' + blackberry.app.version },
+		{ tag: 'p', content: blackberry.app.description },
+	    { tag: 'p', content: blackberry.app.author + ' <' + blackberry.app.authorEmail + '>' },
+	    { tag: 'p', content: blackberry.app.authorURL },
+	    { tag: 'p', content: 'Copyright ' + blackberry.app.copyright },
+	    { tag: 'p', content: blackberry.app.license + '<' + blackberry.app.licenseURL  + '>' }
+		]
+	}
+    ]
+});
+
+enyo.kind({
+	name: 'AppHome',
+	kind: enyo.Control,
+	style: 'display: none',
+	classes: 'onyx',
+	components: [
+		{ tag: 'h3', content: blackberry.app.name },
+		{ tag: 'hr' },
+		{ tag: 'p', content: 'Battery Level' },
+		{ kind: 'onyx.ProgressBar', name: 'batteryLevel', showStripes: false, progress: 100 },
+		{ tag: 'hr' },
+		{ tag: 'p', content: 'Accelerometer' },
+		{ tag: 'span', content: 'X ' },
+		{ kind: 'onyx.Slider', name: 'xAccel', lockBar: false, value: 50 },
+		{ tag: 'span', content: 'Y ' },
+		{ kind: 'onyx.Slider', name: 'yAccel', lockBar: false, value: 50 },
+		{ tag: 'span', content: 'Z ' },
+		{ kind: 'onyx.Slider', name: 'zAccel', lockBar: false, value: 50 },
+		{ tag: 'hr' },
+		{ tag: 'p', content: 'File System' },
+		{ kind: 'onyx.ProgressBar', name: 'downloadProgress' },
+		{ kind: 'onyx.Button', name: 'downloadButton', content: 'Download', classes: 'onyx-blue', ontap: 'downloadTap' },
+		{ tag: 'span', content: '  ' },
+		{ kind: 'onyx.Button', name: 'openButton', content: 'Open', classes: 'onyx-affirmative', disabled: true, ontap: 'openTap' }
+    ],
+	updateBattery: function(newValue) {
+		console.log('Update Battery Level: ' + newValue);
+		this.$.batteryLevel.setProgress(newValue);
+	},
+	updateBatteryCharge: function(newValue) {
+		console.log('Update Battery State: ' + newValue);
+		if (newValue == 2) {
+			this.$.batteryLevel.setShowStripes(true);
+			this.$.batteryLevel.setAnimateStripes(true);
+		} else {
+			this.$.batteryLevel.setShowStripes(false);
+			this.$.batteryLevel.setAnimateStripes(false);
+		}
+	},
+	updateAccel: function(x, y, z) {
+		this.$.xAccel.animateTo(formatAccel(x));
+		this.$.yAccel.animateTo(formatAccel(y));
+		this.$.zAccel.animateTo(formatAccel(z));
+	},
+	downloadTap: function(inSender, inEvent) {
+		console.log('download');
+		request.open('GET', url, true);
+		request.responseType = 'arraybuffer';
+		request.send(null);
+		this.$.openButton.setDisabled(true);
+		this.$.downloadProgress.setProgress(0);
+		this.$.downloadProgress.setAnimateStripes(true);
+		this.$.downloadProgress.setShowStripes(true);
+	},
+	openTap: function(inSender, inEvent) {
+		if (!this.$.openButton.disabled) {
+			// go ahead
+			console.log('open');
+			blackberry.io.file.open(filepath);
+		}
+	},
+	enableOpen: function() {
+		this.$.downloadProgress.setAnimateStripes(false);
+		this.$.downloadProgress.setShowStripes(false);
+		this.$.openButton.setDisabled(false);
+	},
+	updateDownload: function(newValue) {
+		this.$.downloadProgress.animateProgressTo(newValue);
+	},
+	
+});
+
+function swapPage(newPage) {
+	if (swipemenu) {
+		swipemenu.close();
+	}
+	currentPage.applyStyle('display', 'none');
+	newPage.applyStyle('display', 'block');
+	currentPage = newPage;
+}
+
+function doAboutPage() {
+	swapPage(descriptor);
+}
+
+function doHomePage() {
+	swapPage(home);
+}
+
+function batteryUpdateCallback(level) {
+	home.updateBattery(level);
+}
+
+function batteryChargeCallback(charging) {
+	home.updateBatteryCharge(charging);
+}
+
+var descriptor = new AppDescriptor();
+descriptor.write();
+var home = new AppHome();
+home.write();
+
+var currentPage = home;
+currentPage.applyStyle('display', 'block');
+
+blackberry.system.event.deviceBatteryLevelChange(batteryUpdateCallback);
+blackberry.system.event.deviceBatteryStateChange(batteryChargeCallback);
+
+window.addEventListener('devicemotion', function(event) {
+	home.updateAccel(
+		event.accelerationIncludingGravity.x, 
+		event.accelerationIncludingGravity.y, 
+		event.accelerationIncludingGravity.z);
+}, true);
+
+function formatAccel(raw) {
+	return (raw * 3) + 50;
+}
+
+var file = 'enyo.docx';
+var url = 'http://www.thewindsors.ca/test/' + file;
+var filepath = blackberry.io.dir.appDirs.shared.documents.path + '/' + file;
+
+var request = new XMLHttpRequest();
+request.addEventListener('progress', updateProgress, false);
+request.onreadystatechange = function() {
+	if (request.readyState == 4) {
+		if (request.status == 200) {
+			console.log('Saving File');
+			var encoded = base64ArrayBuffer(request.response);
+			console.log('Encoding');
+			var blob = blackberry.utils.stringToBlob(encoded, 'binary');
+			console.log('Blob Created');
+			encoded = null;
+			if (blackberry.io.file.exists(filepath)) {
+				console.log('Existing file deleted');
+				blackberry.io.file.deleteFile(filepath);
+			}
+			blackberry.io.file.saveFile(filepath, blob);
+			blob = null;
+			console.log('Saved File');
+			home.enableOpen();
+		}
+	}
+}
+
+function updateProgress(event) {
+	if (event.lengthComputable) {
+		var amount = event.loaded / event.total * 100;
+		console.log('Loaded: ' + amount);
+		home.updateDownload(amount);
+	}
+}
+
+</script>
+<script src='js/swipemenu.js'></script>
+<script>
+	window.addEventListener('load', function() {
+		if(swipemenu) {
+			//Optional: override default menu height (default = 70px)
+			//swipemenu.setMenuHeight(100);
+
+			//Required: Add menu buttons (can be text, images, or a mix of both):
+			//	params (title, callback, alignRight, imagePath)
+			//swipemenu.addButton('', doButton, false, 'images/icon_options.png');
+			swipemenu.addButton('Home', doHomePage, false, 'img/icon_options.png');
+			swipemenu.addButton('About', doAboutPage, false, 'img/icon_rules.png');
+			//swipemenu.addButton('Text Only', doButton, true, '');
+			//swipemenu.addButton('URL', doButton, true, 'http://icons.iconarchive.com/icons/martin-berube/animal/48/monkey-icon.png');
+			swipemenu.addButton('[x]', swipemenu.close, true);
+			/*
+			icon_options.png, icon_reset.png and icon_rules.png (Public Domain) courtesy of Rory Craig-Barnes
+			https://github.com/glasspear/WebWorks-CodeSamples
+			
+			monkey-icon.png (Freeware, allowed commercial usage) courtesy of Martin Berube:
+			http://www.iconarchive.com/show/animal-icons-by-martin-berube/monkey-icon.html
+			*/
+		}
+	}, false);
+</script>
+<script src='js/base64ArrayBuffer.js'></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+	<title>Fittable Tests</title>
+	<!-- -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- -->
+	<script src="../../../../enyo/enyo.js" type="text/javascript"></script>
+	<script src="../package.js" type="text/javascript"></script>
+	<!-- -->
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+		p {
+			padding: 1em;
+			font-size: 1.2em;
+		}
+		.box {
+			border: 0.1em solid lightblue;
+			padding: 3pt;
+		}
+		.b {
+			background-color: #F1FFF1;
+		}
+		.mtb {
+			margin-top: 0.5rem;
+			margin-bottom: 1%;
+		}
+		.mlr {
+			margin-left: 0.5em;
+			margin-right: 0.5em;
+		}
+		.o {
+			border-color: orange;
+		}
+
+		.boxable {
+			margin: 0.5em;
+			padding: 1em;
+			border: 0.2em solid beige;
+		}
+
+		.boxable > * {
+			border: 0.1em dotted orange;
+			padding: 0.5em;
+		}
+
+		.test {
+			border-width: 0.2em;
+			border-color: red;
+		}
+
+		.small-test {
+			border-width: 0.2em;
+			border-color: red;
+			height: 150px;
+		}
+
+		.section {
+			padding: 30px 10px 10px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body class="onyx">
+<script type="text/javascript">
+	
+	new (enyo.kind({
+		name: "App",
+		kind: "Scroller",
+		components: [
+			{classes: "section", content: "Rows/Columns using a combination of css units and highlighting margin collapse"},
+			{kind: "FittableRows", classes: "box test", style: "height: 400px;", components: [
+				{content: "FOO<br>margin-bottom: 1em", allowHtml: true, classes: "box mlr mtb", style: "margin-bottom: 1em;"},
+				{content: "margin-top: 1em (collapsed since sibling shows greater of previous bottom and this top)<br>FOO", allowHtml: true, classes: "box mlr mtb", style: "margin-top: 1em;"},
+				{content: "FOO<br>FOO", allowHtml: true, classes: "box mlr mtb"},
+				{kind: "FittableColumns", fit: true, classes: "box mtb mlr o", components: [
+					{content: "111111111111111", classes: "box mlr"},
+					{content: "111111111111111", classes: "box mlr"},
+					{content: "2", fit: true, classes: "box mlr o"},
+					{content: "3333333", classes: "box mlr"}
+				]},
+				{kind: "FittableColumns", content: "Bat", classes: "box mtb enyo-center", components: [
+					{content: "add enyo-center to FittableColumns", classes: "box mlr"},
+					{content: "1", classes: "box mlr"},
+					{content: "2", classes: "box mlr"},
+					{content: "3", classes: "box mlr"},
+					{content: "4", classes: "box mlr"},
+					{content: "5", classes: "box mlr"}
+				]}
+			]},
+			{classes: "section", content: "Rows with enyo-margin-expand to avoid margin-collapse"},
+			{kind: "FittableRows", classes: "box test enyo-margin-expand", style: "height: 250px;", components: [
+				{content: "FOO<br>margin-bottom: 1em", allowHtml: true, classes: "box mtb", style: "margin-bottom: 1em;"},
+				{content: "margin-top: 3em (not collapsed due to enyo-margin-expand on box)<br>FOO", allowHtml: true, classes: "box mtb", style: "margin-top: 3em;"},
+				{content: "FOO<br>FOO", allowHtml: true, fit: true, classes: "box mtb"}
+			]},
+			{classes: "section", content: "Tests to ensure fit region can be first, middle, or last"},
+			{kind: "FittableRows", classes: "boxable small-test", components: [
+				{content: "A", fit: true},
+				{content: "B"},
+				{content: "C"},
+			]},
+			{kind: "FittableRows", classes: "boxable small-test", components: [
+				{content: "A"},
+				{content: "B", fit: true},
+				{content: "C"},
+			]},
+			{kind: "FittableRows", classes: "boxable small-test", components: [
+				{content: "A"},
+				{content: "B"},
+				{content: "C", fit: true},
+			]},
+			{kind: "FittableColumns", classes: "boxable small-test", components: [
+				{content: "A", fit: true},
+				{content: "B"},
+				{content: "C"},
+			]},
+			{kind: "FittableColumns", classes: "boxable small-test", components: [
+				{content: "A"},
+				{content: "B", fit: true},
+				{content: "C"},
+			]},
+			{style: "height: 200px;", kind: "FittableColumns", classes: "boxable small-test", components: [
+				{content: "A"},
+				{content: "B"},
+				{content: "C", fit: true},
+			]},
+			{classes: "section", content: "Tests for noStretch: true"},
+			{kind: "FittableRows", classes: "box test", style: "height: 400px;", noStretch: true, components: [
+				{content: "FOO<br>margin-bottom: 1em", allowHtml: true, classes: "box mlr mtb", style: "margin-bottom: 1em;"},
+				{content: "margin-top: 2em (not collapsed; stretch false does not collapse due to use of float)<br>FOO", allowHtml: true, classes: "box mlr mtb", style: "margin-top: 1em;"},
+				{content: "FOO<br>FOO", allowHtml: true, classes: "box mlr mtb"},
+				{kind: "FittableColumns", fit: true, noStretch: true, classes: "box mtb mlr o", components: [
+					{content: "111111111111111", classes: "box mlr"},
+					{content: "111111111111111", classes: "box mlr"},
+					{content: "2<br>2", allowHtml: true, fit: true, classes: "box mlr o"},
+					{content: "3333333", classes: "box mlr"}
+				]},
+				{kind: "FittableColumns", content: "Bat", noStretch: true, classes: "box mtb enyo-center", components: [
+					{content: "add enyo-center to FittableColumns", classes: "box mlr"},
+					{content: "1", classes: "box mlr"},
+					{content: "2", classes: "box mlr"},
+					{content: "3", classes: "box mlr"},
+					{content: "4", classes: "box mlr"},
+					{content: "5", classes: "box mlr"}
+				]}
+			]},
+		]
+	}))({fit: true}).write();
+	
+	/*
+	new (enyo.kind({
+		name: "App",
+		kind: "FittableColumns",
+		classes: "box mtb o",
+		stretch: true,
+		components: [
+			{content: "111111111111111", classes: "box mlr"},
+			{content: "111111111111111", classes: "box mlr"},
+			{content: "2", fit: true, classes: "box mlr o"},
+			{content: "3333333", classes: "box mlr"}
+		]
+	}))({fit: true}).write();
+	*/
+</script>
+</body>
+</html>
