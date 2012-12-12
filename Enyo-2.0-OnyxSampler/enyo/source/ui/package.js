@@ -1,0 +1,16 @@
+enyo.depends(
+	"ui.css",
+	"BaseLayout.js",
+	"Image.js",
+	"Input.js",
+	"RichText.js",
+	"TextArea.js",
+	"Select.js",
+	"Group.js",
+	"GroupItem.js",
+	"ToolDecorator.js",
+	"Button.js",
+	"Checkbox.js",
+	"Repeater.js",
+	"DragAvatar.js"
+);

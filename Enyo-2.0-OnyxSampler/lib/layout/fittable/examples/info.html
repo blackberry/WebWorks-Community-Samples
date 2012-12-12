@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+	<title>Fittable Description</title>
+	<!-- -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- -->
+	<script src="../../../../enyo/enyo.js" type="text/javascript"></script>
+	<script src="../package.js" type="text/javascript"></script>
+	<!-- -->
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+		p {
+			padding: 8px;
+			font-size: 1.2em;
+		}
+		.box {
+			border: 2px solid lightblue;
+			padding: 4px;
+		}
+		.b {
+			background-color: #F1FFF1;
+		}
+		.mtb {
+			margin-top: 3px;
+			margin-bottom: 3px;
+		}
+		.mlr {
+			margin-left: 6px;
+			margin-right: 6px;
+		}
+		.o {
+			border-color: orange;
+		}
+		.height {
+			height: 140px;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	new (enyo.kind({
+		name: "App",
+		components: [
+			{tag: "p", allowHtml: true, content: "FittableColumns, no margin on boxes (all divs have some padding). By default, boxes 'stretch' to fit the container (which must have a height)."},
+			{kind: "FittableColumns", classes: "height box o mlr mtb", components: [
+				{content: "BoxA", classes: "box"},
+				{content: "Fitting BoxB", fit: true, classes: "box"},
+				{content: "BoxC", classes: "box"}
+			]},
+			{tag: "p", allowHtml: true, content: "Boxes with left/right margins. Note: top/bottom margin on column boxes is NOT supported."},
+			{kind: "FittableColumns", classes: "height box o mlr mtb", components: [
+				{content: "BoxA", classes: "box mlr"},
+				{content: "Fitting BoxB", fit: true, classes: "box mlr"},
+				{content: "BoxC", classes: "box mlr"}
+			]},
+			{tag: "p", allowHtml: true, content: "With <code>noStretch: true</code>, boxes have natural height."},
+			{kind: "FittableColumns", noStretch: true, classes: "height box o mlr mtb", components: [
+				{content: "BoxA", classes: "box mlr"},
+				{content: "Fitting BoxB<br><br>with natural height", fit: true, allowHtml: true, classes: "box mlr"},
+				{content: "BoxC", classes: "box mlr"}
+			]},
+			{tag: "p", allowHtml: true, content: "FittableRows, no margin on boxes (all divs have some padding)."},
+			{kind: "FittableRows", classes: "height box o mlr mtb", components: [
+				{content: "BoxA", classes: "box"},
+				{content: "Fitting BoxB", fit: true, classes: "box"},
+				{content: "BoxC", classes: "box"}
+			]},
+			{tag: "p", allowHtml: true, content: "Row boxes may have margin in any dimension.<br><br> NOTE: Row boxes will collapse vertical margins according to css rules. If margin collapse is not desired, then \"enyo-margin-expand\" may be applied. Only in this case, left/right margin on row boxes is NOT supported."},
+			{kind: "FittableRows", classes: "height box o mlr mtb", components: [
+				{content: "BoxA", classes: "box mlr mtb"},
+				{content: "Fitting BoxB", fit: true, classes: "box mlr mtb"},
+				{content: "BoxC", classes: "box mlr mtb"}
+			]},
+			{tag: "p", allowHtml: true, content: "With <code>noStretch: true</code>, boxes have natural width.<br><br> NOTE: margins will not collapse in this case."},
+			{kind: "FittableRows", noStretch: true, classes: "height box o Xmlr mtb", components: [
+				{content: "BoxA", classes: "box mlr mtb"},
+				{content: "Fitting BoxB", fit: true, classes: "box mlr mtb"},
+				{content: "BoxC", classes: "box mlr mtb"}
+			]}
+		]
+	}))().write();
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+	<title>Fittable Basic Use</title>
+	<!-- -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- -->
+	<script src="../../../../enyo/enyo.js" type="text/javascript"></script>
+	<script src="../package.js" type="text/javascript"></script>
+	<!-- -->
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+		p {
+			padding: 8px;
+			font-size: 1.2em;
+		}
+		.box {
+			border: 2px solid lightblue;
+			padding: 4px;
+		}
+		.b {
+			background-color: #F1FFF1;
+		}
+		.mtb {
+			margin-top: 3px;
+			margin-bottom: 3px;
+		}
+		.mlr {
+			margin-left: 6px;
+			margin-right: 6px;
+		}
+		.o {
+			border-color: orange;
+		}
+		.height {
+			height: 140px;
+		}
+	</style>
+</head>
+<body class="onyx">
+<script type="text/javascript">
+	
+	new (enyo.kind({
+		name: "App",
+		kind: "FittableRows",
+		classes: "box",
+		components: [
+			{content: "FOO<br>FOO", allowHtml: true, classes: "box mtb"},
+			{content: "FOO<br>FOO", allowHtml: true, classes: "box mtb"},
+			{content: "FOO<br>FOO", allowHtml: true, classes: "box mtb"},
+			{kind: "FittableColumns", fit: true, classes: "box mtb o", components: [
+				{content: "111111111111111", classes: "box mlr"},
+				{content: "111111111111111", classes: "box mlr"},
+				{content: "2", fit: true, classes: "box mlr o"},
+				{content: "3333333", classes: "box mlr"}
+			]},
+			{kind: "FittableColumns", content: "Bat", classes: "box mtb enyo-center", components: [
+				{content: "Hi there centered people", classes: "box mlr"},
+				{content: "1", classes: "box mlr"},
+				{content: "2", classes: "box mlr"},
+				{content: "3", classes: "box mlr"},
+				{content: "4", classes: "box mlr"},
+				{content: "5", classes: "box mlr"}
+			]}
+		]
+	}))({fit: true}).write();
+</script>
+</body>
+</html>
