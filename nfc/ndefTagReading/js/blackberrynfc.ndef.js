@@ -123,6 +123,13 @@ blackberrynfc.ndef.message.Record.prototype.getEncoded = function(encoding) {
 		if ("base64"==encoding) {
 			return blackberrynfc.ndef.util.base64.intArrayToBase64(this.encoded);
 		}
+		if ("invoke"==encoding) {
+			var toReturn = "";
+			for (var i=0; i<this.encoded.length; ++i) {
+				toReturn += String.fromCharCode(this.encoded[i]);
+			}
+			return toReturn;
+		}
 		return this.encoded;
 	} finally {
 		blackberrynfc.ndef.util.log.log("<< getEncoded", -1);
