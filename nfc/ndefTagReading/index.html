@@ -34,9 +34,9 @@ TD,INPUT,BODY {
 	var decodeRecords = blackberrynfc.ndef.message.decodeRecords;
 	
 	// Aliases for record creation functions.
-	var createTextRecord = createTextRecord;
-	var createURIRecord = createURIRecord;
-	var createSpRecord = createSpRecord;
+	var createTextRecord = blackberrynfc.ndef.message.createTextRecord;
+	var createURIRecord = blackberrynfc.ndef.message.createURIRecord;
+	var createSpRecord = blackberrynfc.ndef.message.createSpRecord;
 
 	// When a tag is read by the OS - this handler will be triggered.
 	function onInvoked(onInvokedInfo) {
