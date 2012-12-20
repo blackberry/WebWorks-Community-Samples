@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<!--
+
+Porting a simple jQuery Mobile app to BB10 Theme 
+By: Meyer Tanuan
+Last Updated: 2012-12-20
+
+Source: https://github.com/blackberry/jQueryMobile-BB10-Theme (by Jason D. Scott)
+
+Steps:
+1. Comment out viewport meta tag
+2. Remove jqm css and jqm js references 
+3. Use the BB jqm css and js
+4. Keep each page in separate HTML files
+   - E.g., add settings.html and count.html
+   - Modify href attributes of anchor tags to refer to HTML files (rather than jqm pages)
+   - Replace jqm buttons (anchor tag) to a footer actionbar (div tag)
+5. Keep JS code for each page/HTML file in separate JS files
+   - Add JS file refernce to each HTML page
+6. Refactor code if existing code has functions that refers to other pages
+	- E.g., resetFormValues(maxval) is now replaced with localStorage 
+		(goal: to achieve layered design; loose coupling)
+   
+-->
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <!-- meta name="viewport" content="width=device-width, initial-scale=1" --> 
+    <title>Counter jQM BB10</title>
+    <!-- link href="css/themes/default/jquery.mobile-1.1.1.css" rel="stylesheet" type="text/css" /-->
+    <link href="css/custom.css" rel="stylesheet" type="text/css" />
+
+    <!-- JavaScript HTML requirements -->
+    <!-- script src="js/jquery.js" type="text/javascript"></script -->
+    <!-- script src="js/jquery.mobile-1.1.1.min.js" type="text/javascript"></script -->
+		
+		<link rel="stylesheet" href="dist/BlackBerry-JQM-all.min.css" />
+		<script src="dist/BlackBerry-JQM-all.min.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div data-role="page" id="home">
+    <header data-role="header" style="text-align:center;">
+        <h5>Counter jQM BB10</h5>
+    </header>
+           
+		<section data-role="content" style="text-align:center;">
+    
+			<ul data-role="listview">
+					<li data-role="list-divider"></li>
+
+					<li><a href="count.html" rel="external">
+						<img src="images/icon1.png" alt="Counter">
+						Start Counter
+					</a></li>
+					
+					<li data-role="list-divider" ></li>
+					<li><a href="settings.html" rel="external">
+						<img src="images/icon4.png" alt="Settings">
+						Counter Settings
+					</a></li>
+					
+					<li data-role="list-divider"></li>
+				
+			</ul>
+
+    </section>
+		
+    <footer data-role="footer">
+        <h4>&copy; 2012 Meyer Tanuan</h4>
+    </footer>
+</div>
+
+</body>
+</html>

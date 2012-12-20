@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Counter</title>
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<link href="css/custom.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.js" type="text/javascript"></script>	
+	<link rel="stylesheet" href="dist/BlackBerry-JQM-all.min.css" />
+	<script src="dist/BlackBerry-JQM-all.min.js"></script>
+	<script src="js/count.js" type="text/javascript"></script>
+	
+			<style type="text/css" media="screen">
+			.ui-radio, .ui-radio * { 
+				outline: none;
+			}
+			
+			textarea.ui-input-text {
+				width: 708px;
+			}
+			input.ui-input-text {
+				width: 708px;
+			}
+			.ui-field-contain .ui-slider.ui-slider-switch {
+				float:right;
+			}
+			
+			.ui-controlgroup.ui-controlgroup-horizontal {
+				float: right;
+			}
+			
+			.ui-field-contain div.ui-slider:not(.ui-slider-switch), .ui-field-contain .ui-controlgroup-controls, .ui-field-contain .ui-controlgroup .ui-controlgroup-controls {
+				float: right;
+				width: 75%;
+			}
+		</style>
+</head>
+<body>
+	<div data-role="page">
+    <header data-role="header" style="text-align:center;">
+        <h5>Counter</h5>
+    </header>
+		<div data-role="content">
+			<form id="countForm">
+				<label for="highval">Highest Value</label>
+				<input readonly type="text" name="highval" id="highval" />
+				
+				<label for="currval">Current Value</label>
+				<input readonly type="text" name="currval" id="currval" style="color:blue;" />
+				
+				<hr class="group"/>
+				<button id="btnNext" data-theme="b" data-inline="false">Next</button>			
+			</form>
+			<hr class="group"/>
+
+		</div> <!--/content-->
+		<div data-role="footer" data-position="fixed">
+			<div id="action-bar-area" data-role="actionbar">
+				<div data-role="back"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

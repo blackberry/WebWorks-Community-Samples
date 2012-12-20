@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<script src="js/jquery.js" type="text/javascript"></script>
+	<script src="js/settings.js" type="text/javascript"></script>
+<link rel="stylesheet" href="dist/BlackBerry-JQM-all.min.css" />
+<script src="dist/BlackBerry-JQM-all.min.js"></script>
+</head>
+
+<body>
+	<div data-role="page">
+    <header data-role="header" style="text-align:center;">
+        <h5>Settings</h5>
+    </header>
+		<div data-role="content">
+
+			<ul data-role="listview">			
+				<li data-role="list-divider">Change Maximum Value</li>
+				<button id="btnSet2" data-theme="b" data-inline="false">Set Maximum Value to 2</button>							
+				<button id="btnSet10" data-theme="b" data-inline="false">Set Maximum Value to 10</button>			
+			</ul>						
+		</div> <!--/content-->
+		<div data-role="footer" data-position="fixed">
+			<div id="action-bar-area" data-role="actionbar">
+				<div data-role="back"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

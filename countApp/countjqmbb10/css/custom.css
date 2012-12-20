@@ -1,0 +1,15 @@
+/*!
+ * Created for Guess a Number Game
+ * By: Meyer Tanuan
+ * Date: 17-11-2012
+ */
+
+label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+textarea {
+	height: 5 em;
+	width: 25em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
