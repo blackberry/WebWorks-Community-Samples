@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns:rim="http://www.blackberry.com/ns/widgets" id="countjqmbb10" version="1.0.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets">
+  <rim:navigation mode="focus"/>
+  <name>Counter App</name>
+  <description>App to count to the highest value using jQuery Mobile with BB10 Theme.</description>
+  <author>Meyer Tanuan</author>
+  <icon src="images/icon.png" />
+
+  <content src="index.html" />
+
+	<!-- BB10 -->		
+	<feature id="blackberry.app.orientation">
+		<param name="mode" value="portrait" />
+	</feature>
+
+	<feature id="blackberry.app" />
+</widget>
