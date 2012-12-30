@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:rim="http://www.blackberry.com/ns/widgets" id="localstorage" version="1.1.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets">
+<widget xmlns:rim="http://www.blackberry.com/ns/widgets" id="localstorage" version="1.2.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets">
   <rim:navigation mode="focus"/>
   <name>localStorage</name>
   <description>How to use localStorage to make better bbUI apps</description>
   <author href="http://www.scrapps.org">G. Shane Cridlebaugh; SCrApps</author>
   <icon src="images/icon.png" />
-  <icon src="images/icon2.png" rim:hover="true" />
   <rim:loadingScreen backgroundImage="images/splashscreen.jpg" >
     <rim:transitionEffect type="fadeIn" />
   </rim:loadingScreen>
