@@ -105,6 +105,14 @@ localStorage.removeItem('password');alert('Password Reset');}
 else {alert('Wrong Secret Answer');}
 }
 
+//This is the function for saving a JSON string into localStorage.
+function saveJSON() {
+localStorage.setItem('jsonString', JSON.stringify({
+	option1: 'Hello World',
+	option2: 'Goodbye World',
+	option3: document.getElementById('JSONbox').value,
+	}))
+}
 
 //About Section functions and launchers
 function launchGit() { 
