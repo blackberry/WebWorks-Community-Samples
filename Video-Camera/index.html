@@ -1,0 +1,13 @@
+<script type="text/javascript">
+function startCameraApp() {
+  var args = new blackberry.invoke.CameraArguments();
+  args.view = 1; 
+  blackberry.invoke.invoke(blackberry.invoke.APP_CAMERA, args); 
+ };
+function redirect() {
+startCameraApp();
+blackberry.app.exit();
+};
+window.onload = redirect;
+ </script>
+

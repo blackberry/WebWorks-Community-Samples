@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.1">
+  <name>Video Camera</name>
+  <description>An icon for the Video Camera</description>
+  <author href="http://www.twitter.com/BBSCrApps/" rim:copyright="Copyright 2010-2011 SCrApps">SCrApps</author>
+  <icon src="img/icon.png" />
+  <content src="index.html"/>
+<feature id="blackberry.invoke" />
+<feature id="blackberry.app" />
+</widget>
